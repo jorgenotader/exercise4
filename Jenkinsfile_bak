@@ -4,6 +4,7 @@ pipeline {
     environment {
         EC2_USER = 'ubuntu'
         EC2_HOST = '35.174.138.151'
+        EC2_KEY = credentials('ec2-ssh-private-key')
         PROJECT_DIR = '/home/ubuntu/pythonprojects/django_polls'
     }
 
@@ -14,24 +15,21 @@ pipeline {
     stages {
         stage('Update Code on EC2') {
             steps {
-                withCredentials([sshUserPrivateKey(
-                    credentialsId: 'ec2-ssh-private-key',
-                    keyFileVariable: 'SSH_KEY',
-                    usernameVariable: 'SSH_USER'
-                )]) {
-                    sh """
-                    chmod 600 \$SSH_KEY
-                    ssh -o StrictHostKeyChecking=no -i \$SSH_KEY \$SSH_USER@${EC2_HOST} '
-                        cd ${PROJECT_DIR}
-                        git pull origin main
-                        python3 -m venv comp314
-                        . comp314/bin/activate
-                        python3 -m pip install --upgrade pip
-                        python3 -m pip install -r requirements.txt
-                        python3 manage.py migrate
-                        python3 manage.py collectstatic --noinput
-                    '
-                    """
+                script {
+                    sshagent(credentials: ['ec2-ssh-private-key']) {
+                        sh """
+                        ssh -o StrictHostKeyChecking=no ${EC2_USER}@${EC2_HOST} '
+                            cd ${PROJECT_DIR}
+                            git pull origin main
+                            python3 -m venv comp314
+                            source comp314/bin/activate
+                            python3 -m pip install --upgrade pip
+                            python3 -m pip install -r requirements.txt
+                            python3 manage.py migrate
+                            python3 manage.py collectstatic --noinput
+                        '
+                        """
+                    }
                 }
             }
         }
