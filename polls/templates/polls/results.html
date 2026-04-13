@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'polls/style.css' %}">
+</head>
+<body>
+    <div class="page-shell">
+        <main class="card">
+            <p class="meta-text">Poll results</p>
+            <h1 class="hero-title">{{ question.question_text }}</h1>
+            <ul class="results-list">
+            {% for choice in question.choice_set.all %}
+                <li>{{ choice.choice_text }} — {{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
+            {% endfor %}
+            </ul>
+            <div class="button-row">
+                <a class="secondary-link" href="{% url 'polls:detail' question.id %}">Vote again</a>
+                <a class="secondary-link" href="{% url 'polls:index' %}">Back to home</a>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

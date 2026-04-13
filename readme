@@ -1,0 +1,11 @@
+Created for COMP314 Django deployment using Jenkins on AWS EC2.
+
+Repository
+https://github.com/jorgenotader/exercise4
+
+EC2 public IP
+35.174.138.151
+
+Admin interface credentials
+username: admin
+password: comp314

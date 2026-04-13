@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ question.question_text }}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'polls/style.css' %}">
+</head>
+<body>
+    <div class="page-shell">
+        <main class="card">
+            <p class="meta-text">Cast your vote</p>
+            <h1 class="hero-title">{{ question.question_text }}</h1>
+            {% if error_message %}<p class="error-text">{{ error_message }}</p>{% endif %}
+
+            <form action="{% url 'polls:vote' question.id %}" method="post">
+                {% csrf_token %}
+                <fieldset class="choice-group">
+                    {% for choice in question.choice_set.all %}
+                        <div class="choice-item">
+                            <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+                            <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label>
+                        </div>
+                    {% endfor %}
+                </fieldset>
+                <div class="button-row">
+                    <input class="primary-button" type="submit" value="Vote">
+                    <a class="secondary-link" href="{% url 'polls:index' %}">Back to home</a>
+                </div>
+            </form>
+        </main>
+    </div>
+</body>
+</html>
