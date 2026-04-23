@@ -9,7 +9,7 @@ pipeline {
         IMAGE_NAME     = "jorgenotader/exercise4:latest"
         CONTAINER_NAME = "exercise4"
         HOST_PORT      = "80"
-        CONTAINER_PORT = "8000"
+        CONTAINER_PORT = "80"
     }
 
     options {
@@ -31,8 +31,10 @@ pipeline {
                     echo "Checking required project files..."
 
                     test -f Dockerfile
-                    test -f requirements.txt
-                    test -f manage.py
+                    test -f nginx.conf
+                    test -f index.html
+                    test -f sgustyle.css
+                    test -f sguscript.js
 
                     echo "Required files found."
                     ls -la
@@ -49,38 +51,38 @@ pipeline {
             }
         }
 
-       stage('Stop Old Container') {
-    steps {
-        sh '''
-            set +e
-            docker stop "$CONTAINER_NAME" || true
-            docker rm -f "$CONTAINER_NAME" || true
-        '''
-    }
-}
+        stage('Stop Old Container') {
+            steps {
+                sh '''
+                    set +e
+                    docker stop "$CONTAINER_NAME" || true
+                    docker rm -f "$CONTAINER_NAME" || true
+                '''
+            }
+        }
 
-stage('Run Container') {
-    steps {
-        sh '''
-            set -e
-            docker run -d \
-              --name "$CONTAINER_NAME" \
-              --restart unless-stopped \
-              -p "$HOST_PORT:$CONTAINER_PORT" \
-              "$IMAGE_NAME"
-        '''
-    }
-}
+        stage('Run Container') {
+            steps {
+                sh '''
+                    set -e
+                    docker run -d \
+                      --name "$CONTAINER_NAME" \
+                      --restart unless-stopped \
+                      -p "$HOST_PORT:$CONTAINER_PORT" \
+                      "$IMAGE_NAME"
+                '''
+            }
+        }
 
-       stage('Test Website Locally') {
-    steps {
-        sh '''
-            set -e
-            sleep 5
-            curl -I http://localhost:$HOST_PORT/
-        '''
-    }
-}
+        stage('Test Website Locally') {
+            steps {
+                sh '''
+                    set -e
+                    sleep 5
+                    curl -I http://localhost:$HOST_PORT/
+                '''
+            }
+        }
 
         stage('Show Running Container') {
             steps {
@@ -94,7 +96,7 @@ stage('Run Container') {
     post {
         success {
             echo 'Deployment successful.'
-            echo 'Open: http://35.174.138.151/polls/'
+            echo 'Open: http://54.85.64.57/'
         }
         failure {
             echo 'Deployment failed. Check the Jenkins console output.'
