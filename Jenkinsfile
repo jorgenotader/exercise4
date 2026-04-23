@@ -72,15 +72,15 @@ stage('Run Container') {
     }
 }
 
-        stage('Test Website Locally') {
-            steps {
-                sh '''
-                    set -e
-                    sleep 5
-                    curl -I http://localhost:$HOST_PORT/polls/
-                '''
-            }
-        }
+       stage('Test Website Locally') {
+    steps {
+        sh '''
+            set -e
+            sleep 5
+            curl -I http://localhost:$HOST_PORT/
+        '''
+    }
+}
 
         stage('Show Running Container') {
             steps {
