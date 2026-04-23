@@ -1,24 +1,24 @@
-const luxurySelections = {
+const selections = {
     beach: null,
     food: null,
-    experience: null,
+    activity: null,
     mood: null
 };
 
-const optionGroups = document.querySelectorAll('.option-group');
+const groups = document.querySelectorAll('.options');
 const saveBtn = document.getElementById('saveBtn');
 const resetBtn = document.getElementById('resetBtn');
 const messageBox = document.getElementById('messageBox');
 
-function updateLuxurySummary() {
-    document.getElementById('summary-beach').textContent = luxurySelections.beach || 'Not selected';
-    document.getElementById('summary-food').textContent = luxurySelections.food || 'Not selected';
-    document.getElementById('summary-experience').textContent = luxurySelections.experience || 'Not selected';
-    document.getElementById('summary-mood').textContent = luxurySelections.mood || 'Not selected';
+function updateSummary() {
+    document.getElementById('summary-beach').textContent = selections.beach || 'Not selected';
+    document.getElementById('summary-food').textContent = selections.food || 'Not selected';
+    document.getElementById('summary-activity').textContent = selections.activity || 'Not selected';
+    document.getElementById('summary-mood').textContent = selections.mood || 'Not selected';
 }
 
-function setActiveButton(groupName, value) {
-    const group = document.querySelector(`.option-group[data-group="${groupName}"]`);
+function activateButton(groupName, value) {
+    const group = document.querySelector(`.options[data-group="${groupName}"]`);
     if (!group) return;
 
     group.querySelectorAll('.option-btn').forEach((btn) => {
@@ -32,61 +32,60 @@ function showMessage(text) {
 
     setTimeout(() => {
         messageBox.classList.add('hidden');
-    }, 2500);
+    }, 2200);
 }
 
-optionGroups.forEach((group) => {
+groups.forEach((group) => {
     const groupName = group.dataset.group;
     const buttons = group.querySelectorAll('.option-btn');
 
     buttons.forEach((button) => {
         button.addEventListener('click', () => {
-            luxurySelections[groupName] = button.dataset.value;
-            setActiveButton(groupName, button.dataset.value);
-            updateLuxurySummary();
+            selections[groupName] = button.dataset.value;
+            activateButton(groupName, button.dataset.value);
+            updateSummary();
         });
     });
 });
 
 saveBtn.addEventListener('click', () => {
-    localStorage.setItem('grenadaLuxurySelections', JSON.stringify(luxurySelections));
-    updateLuxurySummary();
-    showMessage('Your luxury Grenada escape has been saved.');
+    localStorage.setItem('grenadaSelections', JSON.stringify(selections));
+    updateSummary();
+    showMessage('Your choices were saved.');
 });
 
 resetBtn.addEventListener('click', () => {
-    Object.keys(luxurySelections).forEach((key) => {
-        luxurySelections[key] = null;
+    Object.keys(selections).forEach((key) => {
+        selections[key] = null;
     });
 
-    localStorage.removeItem('grenadaLuxurySelections');
+    localStorage.removeItem('grenadaSelections');
 
     document.querySelectorAll('.option-btn').forEach((btn) => {
         btn.classList.remove('active');
     });
 
-    updateLuxurySummary();
-    showMessage('Your selections were reset.');
+    updateSummary();
+    showMessage('Selections reset.');
 });
 
-function loadSavedLuxurySelections() {
-    const saved = localStorage.getItem('grenadaLuxurySelections');
-
+function loadSavedSelections() {
+    const saved = localStorage.getItem('grenadaSelections');
     if (!saved) {
-        updateLuxurySummary();
+        updateSummary();
         return;
     }
 
     const parsed = JSON.parse(saved);
 
-    Object.keys(luxurySelections).forEach((key) => {
-        luxurySelections[key] = parsed[key] || null;
-        if (luxurySelections[key]) {
-            setActiveButton(key, luxurySelections[key]);
+    Object.keys(selections).forEach((key) => {
+        selections[key] = parsed[key] || null;
+        if (selections[key]) {
+            activateButton(key, selections[key]);
         }
     });
 
-    updateLuxurySummary();
+    updateSummary();
 }
 
-loadSavedLuxurySelections();
+loadSavedSelections();
