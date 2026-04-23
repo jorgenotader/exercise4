@@ -10,7 +10,7 @@ body {
     color: #f3f5f8;
     background:
         linear-gradient(rgba(4, 9, 20, 0.68), rgba(4, 9, 20, 0.78)),
-        url("grenada-updated.jpeg") center center / cover no-repeat fixed;
+        url("/grenada-updated.jpeg") center center / cover no-repeat fixed;
 }
 
 .page-wrap {
