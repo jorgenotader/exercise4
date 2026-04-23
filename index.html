@@ -1,76 +1,248 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Discover Grenada</title>
-    <link rel="stylesheet" href="/sgustyle.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luxury Grenada Escape</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    min-height:100vh;
+    background:
+    linear-gradient(rgba(4,9,20,.70), rgba(4,9,20,.78)),
+    url("grenada-updated.jpeg") center center/cover no-repeat fixed;
+    color:white;
+}
+
+.wrapper{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:40px 20px;
+}
+
+.card{
+    width:100%;
+    max-width:760px;
+    background:rgba(255,255,255,.10);
+    backdrop-filter:blur(12px);
+    border:1px solid rgba(255,255,255,.18);
+    border-radius:24px;
+    box-shadow:0 20px 45px rgba(0,0,0,.35);
+    padding:35px;
+}
+
+.small{
+    color:#dce2ea;
+    font-size:.95rem;
+    margin-bottom:10px;
+}
+
+h1{
+    font-size:3rem;
+    margin-bottom:15px;
+}
+
+p{
+    color:#eef2f7;
+    line-height:1.7;
+    margin-bottom:24px;
+}
+
+.section{
+    margin-bottom:24px;
+}
+
+.section h2{
+    font-size:1.2rem;
+    margin-bottom:12px;
+}
+
+.options{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+button.option{
+    background:rgba(255,255,255,.12);
+    color:white;
+    border:1px solid rgba(255,255,255,.18);
+    border-radius:12px;
+    padding:10px 15px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+button.option:hover{
+    background:rgba(255,255,255,.22);
+}
+
+button.active{
+    background:rgba(255,255,255,.30);
+}
+
+.summary{
+    background:rgba(255,255,255,.08);
+    padding:18px;
+    border-radius:16px;
+    margin-top:10px;
+}
+
+.summary div{
+    margin-bottom:10px;
+}
+
+.row{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-top:18px;
+}
+
+.mainbtn{
+    background:rgba(255,255,255,.18);
+    border:none;
+    color:white;
+    padding:12px 18px;
+    border-radius:12px;
+    cursor:pointer;
+}
+
+.mainbtn:hover{
+    background:rgba(255,255,255,.28);
+}
+
+@media(max-width:640px){
+    h1{font-size:2rem;}
+    button.option,.mainbtn{width:100%;}
+}
+</style>
 </head>
+
 <body>
-    <div class="page-wrap">
-        <div class="glass-card">
-            <p class="label">Luxury island experience</p>
-            <h1>Discover Grenada</h1>
-            <p class="intro">
-                Plan your perfect escape with elegant beaches, refined cuisine,
-                unforgettable attractions, and a luxury Caribbean atmosphere.
-            </p>
 
-            <div class="section-block">
-                <h2>Choose your favorite beach</h2>
-                <div class="options" data-group="beach">
-                    <button class="option-btn" data-value="Grand Anse Beach">Grand Anse Beach</button>
-                    <button class="option-btn" data-value="Magazine Beach">Magazine Beach</button>
-                    <button class="option-btn" data-value="La Sagesse Beach">La Sagesse Beach</button>
-                </div>
-            </div>
+<div class="wrapper">
+<div class="card">
 
-            <div class="section-block">
-                <h2>Choose your preferred cuisine</h2>
-                <div class="options" data-group="food">
-                    <button class="option-btn" data-value="Oil Down">Oil Down</button>
-                    <button class="option-btn" data-value="Fresh Seafood">Fresh Seafood</button>
-                    <button class="option-btn" data-value="Roti">Roti</button>
-                </div>
-            </div>
+<div class="small">Private Island Inspiration</div>
+<h1>Luxury Grenada Escape</h1>
 
-            <div class="section-block">
-                <h2>Choose your favorite activity</h2>
-                <div class="options" data-group="activity">
-                    <button class="option-btn" data-value="Waterfall Tours">Waterfall Tours</button>
-                    <button class="option-btn" data-value="Yacht Day">Yacht Day</button>
-                    <button class="option-btn" data-value="Cultural Exploration">Cultural Exploration</button>
-                </div>
-            </div>
+<p>
+Discover a refined Caribbean experience with elegant beaches,
+premium cuisine, unforgettable adventures, and your own saved travel plan.
+</p>
 
-            <div class="section-block">
-                <h2>Choose your travel mood</h2>
-                <div class="options" data-group="mood">
-                    <button class="option-btn" data-value="Relaxed Luxury">Relaxed Luxury</button>
-                    <button class="option-btn" data-value="Romantic Escape">Romantic Escape</button>
-                    <button class="option-btn" data-value="Adventure and Style">Adventure and Style</button>
-                </div>
-            </div>
+<div class="section">
+<h2>Choose Your Favorite Beach</h2>
+<div class="options" data-group="beach">
+<button class="option">Grand Anse</button>
+<button class="option">Magazine Beach</button>
+<button class="option">La Sagesse</button>
+</div>
+</div>
 
-            <div class="summary-box">
-                <h2>Your saved choices</h2>
-                <ul>
-                    <li><strong>Beach:</strong> <span id="summary-beach">Not selected</span></li>
-                    <li><strong>Cuisine:</strong> <span id="summary-food">Not selected</span></li>
-                    <li><strong>Activity:</strong> <span id="summary-activity">Not selected</span></li>
-                    <li><strong>Mood:</strong> <span id="summary-mood">Not selected</span></li>
-                </ul>
-            </div>
+<div class="section">
+<h2>Choose Preferred Cuisine</h2>
+<div class="options" data-group="food">
+<button class="option">Oil Down</button>
+<button class="option">Fresh Seafood</button>
+<button class="option">Roti</button>
+</div>
+</div>
 
-            <div class="button-row">
-                <button id="saveBtn" class="main-btn">Save My Escape</button>
-                <button id="resetBtn" class="secondary-btn">Reset</button>
-            </div>
+<div class="section">
+<h2>Choose Activity</h2>
+<div class="options" data-group="activity">
+<button class="option">Waterfall Tour</button>
+<button class="option">Yacht Day</button>
+<button class="option">Snorkeling</button>
+</div>
+</div>
 
-            <div id="messageBox" class="message-box hidden"></div>
-        </div>
-    </div>
+<div class="section">
+<h2>Choose Mood</h2>
+<div class="options" data-group="mood">
+<button class="option">Romantic</button>
+<button class="option">Adventure</button>
+<button class="option">Relaxed Luxury</button>
+</div>
+</div>
 
- <script src="/sguscript.js"></script>
+<div class="summary">
+<div><b>Beach:</b> <span id="beach">Not selected</span></div>
+<div><b>Food:</b> <span id="food">Not selected</span></div>
+<div><b>Activity:</b> <span id="activity">Not selected</span></div>
+<div><b>Mood:</b> <span id="mood">Not selected</span></div>
+</div>
+
+<div class="row">
+<button class="mainbtn" onclick="saveChoices()">Save My Escape</button>
+<button class="mainbtn" onclick="resetChoices()">Reset</button>
+</div>
+
+</div>
+</div>
+
+<script>
+let selected = {
+beach:null,
+food:null,
+activity:null,
+mood:null
+};
+
+document.querySelectorAll(".options").forEach(group=>{
+    let name = group.dataset.group;
+    let buttons = group.querySelectorAll("button");
+
+    buttons.forEach(btn=>{
+        btn.onclick = ()=>{
+            buttons.forEach(b=>b.classList.remove("active"));
+            btn.classList.add("active");
+            selected[name]=btn.innerText;
+            update();
+        };
+    });
+});
+
+function update(){
+    document.getElementById("beach").innerText = selected.beach || "Not selected";
+    document.getElementById("food").innerText = selected.food || "Not selected";
+    document.getElementById("activity").innerText = selected.activity || "Not selected";
+    document.getElementById("mood").innerText = selected.mood || "Not selected";
+}
+
+function saveChoices(){
+    localStorage.setItem("grenadaTrip", JSON.stringify(selected));
+    alert("Your escape was saved!");
+}
+
+function resetChoices(){
+    localStorage.removeItem("grenadaTrip");
+    selected={beach:null,food:null,activity:null,mood:null};
+    document.querySelectorAll(".option").forEach(b=>b.classList.remove("active"));
+    update();
+}
+
+function loadSaved(){
+    let data = localStorage.getItem("grenadaTrip");
+    if(data){
+        selected = JSON.parse(data);
+        update();
+    }
+}
+
+loadSaved();
+</script>
+
 </body>
 </html>
