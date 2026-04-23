@@ -49,28 +49,28 @@ pipeline {
             }
         }
 
-        stage('Stop Old Container') {
-            steps {
-                sh '''
-                    set +e
-                    docker rm -f "$CONTAINER_NAME"
-                    true
-                '''
-            }
-        }
+       stage('Stop Old Container') {
+    steps {
+        sh '''
+            set +e
+            docker stop "$CONTAINER_NAME" || true
+            docker rm -f "$CONTAINER_NAME" || true
+        '''
+    }
+}
 
-        stage('Run Container') {
-            steps {
-                sh '''
-                    set -e
-                    docker run -d \
-                      --name "$CONTAINER_NAME" \
-                      --restart unless-stopped \
-                      -p "$HOST_PORT:$CONTAINER_PORT" \
-                      "$IMAGE_NAME"
-                '''
-            }
-        }
+stage('Run Container') {
+    steps {
+        sh '''
+            set -e
+            docker run -d \
+              --name "$CONTAINER_NAME" \
+              --restart unless-stopped \
+              -p "$HOST_PORT:$CONTAINER_PORT" \
+              "$IMAGE_NAME"
+        '''
+    }
+}
 
         stage('Test Website Locally') {
             steps {
