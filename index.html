@@ -3,145 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luxury Grenada Escape</title>
+    <title>Grenada Luxe Escape</title>
     <link rel="stylesheet" href="sgustyle.css">
 </head>
 <body>
-    <header class="hero">
-        <div class="hero-overlay"></div>
-        <nav class="topbar">
-            <div class="brand">Grenada Luxe</div>
-            <div class="nav-links">
-                <a href="#experiences">Experiences</a>
-                <a href="#preferences">Preferences</a>
-                <a href="#summary">Summary</a>
-            </div>
-        </nav>
-
-        <div class="hero-content">
-            <p class="eyebrow">Private Island Inspiration</p>
-            <h1>Luxury Grenada Escape</h1>
-            <p class="hero-text">
-                Discover a refined Caribbean experience with elegant views,
-                unforgettable beaches, curated island moments, and your own
-                personalized travel preferences.
+    <div class="page-wrap">
+        <div class="glass-card">
+            <p class="label">Luxury island experience</p>
+            <h1>Discover Grenada</h1>
+            <p class="intro">
+                Plan your perfect escape with elegant beaches, refined cuisine,
+                unforgettable attractions, and a luxury Caribbean atmosphere.
             </p>
-            <div class="hero-actions">
-                <a href="#preferences" class="primary-btn">Personalize Your Escape</a>
-                <a href="#experiences" class="secondary-btn">Explore Experiences</a>
-            </div>
-        </div>
-    </header>
 
-    <main>
-        <section id="experiences" class="section">
-            <div class="section-heading">
-                <p class="eyebrow">Curated Highlights</p>
-                <h2>Exclusive Grenada Experiences</h2>
-                <p>
-                    Designed to feel refined, scenic, and memorable from arrival to sunset.
-                </p>
-            </div>
-
-            <div class="card-grid">
-                <article class="lux-card">
-                    <h3>Signature Beaches</h3>
-                    <p>
-                        Relax at crystal-clear shorelines with calm waters, soft sand,
-                        and premium oceanfront views.
-                    </p>
-                </article>
-
-                <article class="lux-card">
-                    <h3>Island Dining</h3>
-                    <p>
-                        Enjoy elevated local flavors, fresh seafood, and authentic
-                        Grenadian cuisine with a modern twist.
-                    </p>
-                </article>
-
-                <article class="lux-card">
-                    <h3>Scenic Adventure</h3>
-                    <p>
-                        Explore waterfalls, panoramic viewpoints, and cultural landmarks
-                        with a luxury-travel atmosphere.
-                    </p>
-                </article>
-            </div>
-        </section>
-
-        <section id="preferences" class="section preferences-section">
-            <div class="section-heading">
-                <p class="eyebrow">Tailor the Journey</p>
-                <h2>Choose Your Luxury Preferences</h2>
-                <p>Select your favorites and save your ideal Grenada escape.</p>
-            </div>
-
-            <div class="preference-grid">
-                <div class="preference-card">
-                    <h3>Preferred Beach</h3>
-                    <div class="option-group" data-group="beach">
-                        <button class="option-btn" data-value="Grand Anse Beach">Grand Anse Beach</button>
-                        <button class="option-btn" data-value="Magazine Beach">Magazine Beach</button>
-                        <button class="option-btn" data-value="La Sagesse Beach">La Sagesse Beach</button>
-                    </div>
-                </div>
-
-                <div class="preference-card">
-                    <h3>Preferred Cuisine</h3>
-                    <div class="option-group" data-group="food">
-                        <button class="option-btn" data-value="Oil Down">Oil Down</button>
-                        <button class="option-btn" data-value="Fresh Seafood">Fresh Seafood</button>
-                        <button class="option-btn" data-value="Roti">Roti</button>
-                    </div>
-                </div>
-
-                <div class="preference-card">
-                    <h3>Preferred Experience</h3>
-                    <div class="option-group" data-group="experience">
-                        <button class="option-btn" data-value="Waterfall Tours">Waterfall Tours</button>
-                        <button class="option-btn" data-value="Yacht Day">Yacht Day</button>
-                        <button class="option-btn" data-value="Cultural Exploration">Cultural Exploration</button>
-                    </div>
-                </div>
-
-                <div class="preference-card">
-                    <h3>Preferred Stay Mood</h3>
-                    <div class="option-group" data-group="mood">
-                        <button class="option-btn" data-value="Relaxed Luxury">Relaxed Luxury</button>
-                        <button class="option-btn" data-value="Romantic Escape">Romantic Escape</button>
-                        <button class="option-btn" data-value="Adventure & Style">Adventure & Style</button>
-                    </div>
+            <div class="section-block">
+                <h2>Choose your favorite beach</h2>
+                <div class="options" data-group="beach">
+                    <button class="option-btn" data-value="Grand Anse Beach">Grand Anse Beach</button>
+                    <button class="option-btn" data-value="Magazine Beach">Magazine Beach</button>
+                    <button class="option-btn" data-value="La Sagesse Beach">La Sagesse Beach</button>
                 </div>
             </div>
 
-            <div class="action-row">
-                <button id="saveBtn" class="primary-btn button-style">Save My Escape</button>
-                <button id="resetBtn" class="secondary-btn button-style">Reset</button>
+            <div class="section-block">
+                <h2>Choose your preferred cuisine</h2>
+                <div class="options" data-group="food">
+                    <button class="option-btn" data-value="Oil Down">Oil Down</button>
+                    <button class="option-btn" data-value="Fresh Seafood">Fresh Seafood</button>
+                    <button class="option-btn" data-value="Roti">Roti</button>
+                </div>
             </div>
 
-            <div id="messageBox" class="message-box hidden"></div>
-        </section>
+            <div class="section-block">
+                <h2>Choose your favorite activity</h2>
+                <div class="options" data-group="activity">
+                    <button class="option-btn" data-value="Waterfall Tours">Waterfall Tours</button>
+                    <button class="option-btn" data-value="Yacht Day">Yacht Day</button>
+                    <button class="option-btn" data-value="Cultural Exploration">Cultural Exploration</button>
+                </div>
+            </div>
 
-        <section id="summary" class="section">
-            <div class="section-heading">
-                <p class="eyebrow">Your Personalized Plan</p>
-                <h2>Luxury Escape Summary</h2>
-                <p>Your saved choices appear below.</p>
+            <div class="section-block">
+                <h2>Choose your travel mood</h2>
+                <div class="options" data-group="mood">
+                    <button class="option-btn" data-value="Relaxed Luxury">Relaxed Luxury</button>
+                    <button class="option-btn" data-value="Romantic Escape">Romantic Escape</button>
+                    <button class="option-btn" data-value="Adventure and Style">Adventure and Style</button>
+                </div>
             </div>
 
             <div class="summary-box">
-                <div class="summary-item"><span>Preferred Beach:</span> <strong id="summary-beach">Not selected</strong></div>
-                <div class="summary-item"><span>Preferred Cuisine:</span> <strong id="summary-food">Not selected</strong></div>
-                <div class="summary-item"><span>Preferred Experience:</span> <strong id="summary-experience">Not selected</strong></div>
-                <div class="summary-item"><span>Preferred Stay Mood:</span> <strong id="summary-mood">Not selected</strong></div>
+                <h2>Your saved choices</h2>
+                <ul>
+                    <li><strong>Beach:</strong> <span id="summary-beach">Not selected</span></li>
+                    <li><strong>Cuisine:</strong> <span id="summary-food">Not selected</span></li>
+                    <li><strong>Activity:</strong> <span id="summary-activity">Not selected</span></li>
+                    <li><strong>Mood:</strong> <span id="summary-mood">Not selected</span></li>
+                </ul>
             </div>
-        </section>
-    </main>
 
-    <footer class="footer">
-        <p>Created by Jorge Eduardo Gorgoy Benitez | Luxury Grenada Website | Docker Deployment Project</p>
-    </footer>
+            <div class="button-row">
+                <button id="saveBtn" class="main-btn">Save My Escape</button>
+                <button id="resetBtn" class="secondary-btn">Reset</button>
+            </div>
+
+            <div id="messageBox" class="message-box hidden"></div>
+        </div>
+    </div>
 
     <script src="sguscript.js"></script>
 </body>
