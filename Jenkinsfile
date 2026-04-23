@@ -1,72 +1,103 @@
 pipeline {
     agent any
 
-    environment {
-        DOCKER_IMAGE = 'jorgenotader/exercise4' // Change only if your Docker Hub repository uses a different name
-        EC2_USER = 'ubuntu'
-        EC2_HOST = '35.174.138.151'
-        EC2_KEY = credentials('ec2-ssh-private-key')
-        DOCKER_CREDS = 'docker-hub-credentials'
-        PROJECT_DIR = "/home/ubuntu/pythonprojects/django_polls"
+    triggers {
+        githubPush()
     }
 
-    // triggers {
-    //     githubPush()
-    // }
+    environment {
+        IMAGE_NAME     = "jorgenotader/exercise4:latest"
+        CONTAINER_NAME = "exercise4"
+        HOST_PORT      = "80"
+        CONTAINER_PORT = "8000"
+    }
+
+    options {
+        timestamps()
+    }
 
     stages {
-        stage('Clone Repository') {
+
+        stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/jorgenotader/exercise4.git'
+                git url: 'https://github.com/jorgenotader/exercise4.git', branch: 'main'
+            }
+        }
+
+        stage('Verify Project Files') {
+            steps {
+                sh '''
+                    set -e
+                    echo "Checking required project files..."
+
+                    test -f Dockerfile
+                    test -f requirements.txt
+                    test -f manage.py
+
+                    echo "Required files found."
+                    ls -la
+                '''
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                script {
-                    docker.build("${DOCKER_IMAGE}:latest")
-                }
+                sh '''
+                    set -e
+                    docker build --pull -t "$IMAGE_NAME" .
+                '''
             }
         }
 
-        stage('Push to Docker Hub') {
+        stage('Stop Old Container') {
             steps {
-                script {
-                    docker.withRegistry('https://index.docker.io/v1/', DOCKER_CREDS) {
-                        docker.image("${DOCKER_IMAGE}:latest").push()
-                        echo 'Image pushed to Docker Hub'
-                    }
-                }
+                sh '''
+                    set +e
+                    docker rm -f "$CONTAINER_NAME"
+                    true
+                '''
             }
         }
 
-        stage('Deploy on EC2') {
+        stage('Run Container') {
             steps {
-                script {
-                    sshagent(credentials: ['ec2-ssh-private-key']) {
-                        sh """
-                        ssh -o StrictHostKeyChecking=no ${EC2_USER}@${EC2_HOST} '
-                            docker pull ${DOCKER_IMAGE}:latest
-                            docker ps -a -q -f name=django-container | grep -q . && docker stop django-container || true
-                            docker ps -a -q -f name=django-container | grep -q . && docker rm django-container || true
-                            docker run -d --name django-container -p 80:80 ${DOCKER_IMAGE}:latest
-                            sleep 5
-                            docker ps -a
-                            docker logs django-container || true
-                        '
-                        """
-                    }
-                }
+                sh '''
+                    set -e
+                    docker run -d \
+                      --name "$CONTAINER_NAME" \
+                      --restart unless-stopped \
+                      -p "$HOST_PORT:$CONTAINER_PORT" \
+                      "$IMAGE_NAME"
+                '''
+            }
+        }
+
+        stage('Test Website Locally') {
+            steps {
+                sh '''
+                    set -e
+                    sleep 5
+                    curl -I http://localhost:$HOST_PORT/polls/
+                '''
+            }
+        }
+
+        stage('Show Running Container') {
+            steps {
+                sh '''
+                    docker ps
+                '''
             }
         }
     }
 
     post {
         success {
-            echo 'Deployment Successful!'
+            echo 'Deployment successful.'
+            echo 'Open: http://35.174.138.151/polls/'
         }
         failure {
-            echo 'Deployment Failed.'
+            echo 'Deployment failed. Check the Jenkins console output.'
         }
     }
 }
